@@ -1,6 +1,7 @@
 % Author: Ian Harris
 % Filename: rotz.m
 % Date: 1/27/23
+% Version: 2.0.0
 % 
 % INPUTS
 % ------------------------------------------------------------------------- 
@@ -22,7 +23,8 @@
 %
 % PURPOSE
 % -------------------------------------------------------------------------
-% The purpose of this function is to form the z rotation matrix.
+% The purpose of this function is to form the z rotation matrix for a CCW 
+% rotation.
 
 
 function [Rz] = rotz(ang, type)
@@ -37,19 +39,19 @@ function [Rz] = rotz(ang, type)
     if nargin == 2
         if (type ~= "deg") && (type ~= "rad")
             cprintf("red","Error: Unit type must be either ""deg"" or ""rad"".\n");
-            Rx = "Error";
+            Rz = "Error";
             return
         end
     end
 
-    % If the degree type is equal to radian, convert it to degree.
-    if type == "rad"
-        ang = ang*180/pi;
+    % If the degree type is equal to degree, convert it to radian.
+    if type == "deg"
+        ang = ang*pi/180;
     end
 
-    % Form the x rotation matrix.
-    Rz = [  cosd(ang)  -sind(ang)  0     
-            sind(ang)  cosd(ang)   0 
-            0          0           1  ];  
+    % Form the z rotation matrix.
+    Rz = [  cos(ang)  sin(ang)  0     
+           -sin(ang)  cos(ang)  0 
+            0          0        1  ];  
     
 end

@@ -1,6 +1,7 @@
 % Author: Ian Harris
 % Filename: roty.m
 % Date: 1/27/23
+% Version: 2.0.0
 % 
 % INPUTS
 % ------------------------------------------------------------------------- 
@@ -22,7 +23,8 @@
 %
 % PURPOSE
 % -------------------------------------------------------------------------
-% The purpose of this function is to form the y rotation matrix.
+% The purpose of this function is to form the y rotation matrix for a CCW 
+% rotation.
 
 
 function [Ry] = roty(ang, type)
@@ -37,19 +39,19 @@ function [Ry] = roty(ang, type)
     if nargin == 2
         if (type ~= "deg") && (type ~= "rad")
             cprintf("red","Error: Unit type must be either ""deg"" or ""rad"".\n");
-            Rx = "Error";
+            Ry = "Error";
             return
         end
     end
 
-    % If the degree type is equal to radian, convert it to degree.
-    if type == "rad"
-        ang = ang*180/pi;
+    % If the degree type is equal to degree, convert it to radian.
+    if type == "deg"
+        ang = ang*pi/180;
     end
 
-    % Form the x rotation matrix.
-    Ry = [  cosd(ang)   0  sind(ang) 
-            0           1  0
-            -sind(ang)  0  cosd(ang)  ];  
+    % Form the y rotation matrix.
+    Ry = [  cos(ang)   0  -sin(ang) 
+            0          1   0
+            sin(ang)   0   cos(ang)  ];  
     
 end

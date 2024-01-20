@@ -1,6 +1,7 @@
 % Author: Ian Harris
 % Filename: rotx.m
 % Date: 1/27/23
+% Version: 2.0.0
 % 
 % INPUTS
 % ------------------------------------------------------------------------- 
@@ -22,7 +23,8 @@
 %
 % PURPOSE
 % -------------------------------------------------------------------------
-% The purpose of this function is to form the x rotation matrix.
+% The purpose of this function is to form the x rotation matrix for a CCW 
+% rotation.
 
 
 function [Rx] = rotx(ang, type)
@@ -42,14 +44,14 @@ function [Rx] = rotx(ang, type)
         end
     end
 
-    % If the degree type is equal to radian, convert it to degree.
-    if type == "rad"
-        ang = ang*180/pi;
+    % If the degree type is equal to degree, convert it to radian.
+    if type == "deg"
+        ang = ang*pi/180;
     end
 
     % Form the x rotation matrix.
     Rx = [  1   0           0
-            0   cosd(ang)  -sind(ang)     
-            0   sind(ang)   cosd(ang)  ];  
+            0   cos(ang)   sin(ang)     
+            0  -sin(ang)   cos(ang)  ];  
     
 end
