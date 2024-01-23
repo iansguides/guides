@@ -1,7 +1,7 @@
 % Author: Ian Harris
 % Filename: CDCM.m
 % Date: 01/20/2024
-% Version: 2.0.0
+% Version: 3.0.0
 %
 % INPUTS
 % ------------------------------------------------------------------------- 
@@ -91,7 +91,8 @@ function [DCM] = CDCM(rot1, rot2, rot3, sequence, type)
     DCM = 1;
 
     % Predefine the rotation array.
-    rot_arr = [rot1 rot2 rot3];
+    rot_arr = [rot3 rot2 rot1];
+    sequence = fliplr(sequence);
 
     % Calculate the DCM and change the unit type of each rot function to
     % the one specified in CDCM.

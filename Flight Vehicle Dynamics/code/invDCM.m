@@ -1,7 +1,7 @@
 % Author: Ian Harris
 % Filename: invDCM.m
 % Date: 01/20/2024
-% Version: 2.0.0
+% Version: 3.0.0
 %
 % INPUTS
 % ------------------------------------------------------------------------- 
@@ -124,9 +124,10 @@ function [angles] = invDCM(DCM, sequence, tolerance, debug, type)
     
     % Form array of symbolic rotation variables and predefine the symbolic
     % DCM to map to.
-    sym_vars = [rot1_sym, rot2_sym, rot3_sym];
+    sym_vars = [rot3_sym, rot2_sym, rot1_sym];
     symDCM = 1;
-    
+    sequence = fliplr(sequence);
+
     % Loop through the sequence and form the symbolic DCM using the
     % corresponding rotations. Pull the rotations from the sym_vars array
     % as the inputs for the rotx(), roty(), and rotz() functions.
@@ -380,7 +381,7 @@ function [angles] = invDCM(DCM, sequence, tolerance, debug, type)
     for i = 1:length(rot2_arr)
         for j = 1:length(rot1_arr)
             for k = 1:length(rot3_arr)
-                rot_arr = [rot1_arr(j),rot2_arr(i),rot3_arr(k)];
+                rot_arr = [rot3_arr(j),rot2_arr(i),rot1_arr(k)];
                 num_DCM = 1;
                 for z = 1:length(sequence)
                     if sequence(z) == 1
@@ -408,6 +409,8 @@ function [angles] = invDCM(DCM, sequence, tolerance, debug, type)
     for i = 1:length(idxs)
         angles(i,1:3) = angles_collec{idxs(i)};
     end
+
+    angles = fliplr(angles);
 
     % Check to see what output unit the angles are in, then output that
     % unit. Also use mod() function to get them within the bounds of one
